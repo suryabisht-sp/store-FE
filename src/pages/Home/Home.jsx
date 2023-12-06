@@ -1,13 +1,17 @@
 import React from 'react';
 import Carousel from '../../components/carousel/Carousel';
-import { Container, Flex, VStack, HStack } from '@chakra-ui/react';
+import { Container, Flex, VStack, HStack, Stack } from '@chakra-ui/react';
 import Login from '../Login/Login';
 import SignUp from '../../SignUP/SignUp';
+import { ProductDetails } from '../../components/Product/Card';
+import { ProductCard2 } from '../../components/Product/Card2';
 const Home = () => {
   return (
-    <Flex align={'center'} justifyContent={'center'}>
+    <Stack align={'center'} justifyContent={'center'}>
       <Carousel />
-    </Flex>
+      <ProductCard2 />
+      {/* <ProductDetails /> */}
+    </Stack>
   );
 };
 

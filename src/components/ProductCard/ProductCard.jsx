@@ -15,8 +15,6 @@ import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { FiShoppingCart } from 'react-icons/fi';
 
 const ProductCard = ({ data }) => {
-  console.log('data', data);
-
   function Rating({ rating, numReviews }) {
     return (
       <Box display="flex" alignItems="center">

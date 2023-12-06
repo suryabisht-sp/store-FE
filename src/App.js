@@ -7,6 +7,7 @@ import NavBar from './components/navbar/NavBar';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import SignUp from './SignUP/SignUp';
+import { ProductDetails } from './components/Product/Card';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <NavBar admin={'false'} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
