@@ -43,7 +43,7 @@ export default function CaptionCarousel() {
       title: 'Design Projects 1',
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
-        'https://www.recipes.com.au/sites/default/files/2019-10/13627_csv_nutrition_products_002%20%281%29_0.jpg',
+        'https://img.freepik.com/vecteurs-premium/texte-modifiable-style-3d-99-fond-super-vente_628935-824.jpg',
     },
     {
       title: 'Design Projects 2',
@@ -57,10 +57,16 @@ export default function CaptionCarousel() {
         'https://www.wedoact.com/static/e6b6ba53b50d74a2fac30dbd167d114d/42837/Tittle%20page_LEAVE_IN_desktop_1.jpg',
     },
     {
-      title: 'Design Projects 3',
+      title: 'Design Projects 4',
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       image:
         'https://www.pepperidgefarm.com/wp-content/uploads/2017/03/products-goldfish-small.jpg',
+    },
+    {
+      title: 'Design Projects 5',
+      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      image:
+        'https://cdn.4imprint.com/qtz/homepage/categories/images21/drinkware0222.jpg',
     },
   ];
 

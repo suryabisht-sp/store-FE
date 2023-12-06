@@ -8,7 +8,7 @@ import {
   Text,
   Image,
 } from '@chakra-ui/react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiChevronLeft } from 'react-icons/bi';
@@ -126,14 +126,14 @@ const ProductDetails = () => {
   const location = useLocation();
   const [data, setData] = useState();
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const handleNavigate = () => {
     navigate('/');
   };
 
   const fetchData = async () => {
     const result = await fetch(
-      `http://localhost:3005/api/v1/products/static?name=${location.state}`
+      `http://localhost:3005/api/v1/products/static?product_id=${id}`
     );
     const jsonData = await result.json();
     setData(jsonData);
