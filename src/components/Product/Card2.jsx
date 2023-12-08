@@ -6,7 +6,14 @@ import {
   SimpleGrid,
   Text,
   Skeleton,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
   Image,
+  Select,
+  Button,
+  HStack,
+  Input,
 } from '@chakra-ui/react';
 import { GoHeart, GoHeartFill } from 'react-icons/go';
 // import { MdOutlineStarBorder } from 'react-icons/md';
@@ -29,11 +36,16 @@ const ProductCard2 = () => {
   const [loading, setLoading] = useState(true);
   const [loadingLike, setLoadingLike] = useState(false);
   const [data, setData] = useState();
+  const [stat, setStat] = useState('');
+  const [sortOption, setSortOption] = useState('');
+  const [sortOptionName, setSortOptionName] = useState('');
 
   const fetchData = async () => {
-    const result = await fetch('http://localhost:3005/api/v1/products/static');
+    const result = await fetch(
+      `http://localhost:3005/api/v1/products/static?name=${stat}&sortByPrice=${sortOption}&sortByName=`
+    );
     const jsonData = await result.json();
-    if (jsonData.product.length > 1) {
+    if (jsonData && jsonData.products.length > 1) {
       setData(jsonData);
       setTimeout(() => {
         setLoading(false);
@@ -42,8 +54,9 @@ const ProductCard2 = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
-  }, []);
+  }, [stat, sortOption, sortOptionName]);
 
   const [like, setLike] = useState(false);
   const navigate = useNavigate();
@@ -56,6 +69,16 @@ const ProductCard2 = () => {
     navigate(`/${id}`, { state: name });
   };
 
+  const handleChange = e => {
+    setStat(e.target.value);
+  };
+
+  const handleSortChange = value => {
+    console.log('values', value);
+    setSortOptionName(value);
+    setSortOption(value);
+  };
+  console.log('options', sortOption);
   return (
     <Box
       p="0"
@@ -64,6 +87,35 @@ const ProductCard2 = () => {
       h="100%"
       overflow="hidden"
     >
+      <Box width={'100%'} display={'flex'} justifyContent={'end'}>
+        <InputGroup w={'50%'} mr={'5'}>
+          <Input
+            type="tel"
+            placeholder="Search Here...."
+            onChange={e => handleChange(e)}
+          />
+          <InputRightAddon children="Search" _hover={{ cursor: 'pointer' }} />
+        </InputGroup>
+        <Select
+          w={'25%'}
+          mr={10}
+          placeholder="Sort By"
+          value={sortOptionName}
+          onChange={e => handleSortChange(e.target.value)}
+        >
+          <option value="option" disabled>
+            Price----
+          </option>
+          <option value="asc">Low to High</option>
+          <option value="des">High to Low</option>
+          <option value="option" disabled>
+            Name----
+          </option>
+          <option value="ascN">A to Z</option>
+          <option value="desN">Z to A</option>
+          {/* Add more options based on your data */}
+        </Select>
+      </Box>
       <Box maxW="1280px" mx="auto" pb="4rem">
         <Box pos="absolute" top="310px" left="-100px">
           {/* <img
@@ -86,7 +138,7 @@ const ProductCard2 = () => {
             </Text>
           </Flex>
 
-          <SimpleGrid columns={[2, 3, 3, 4]} gap="2rem" mt="1rem">
+          <SimpleGrid columns={[1, 3, 3, 4]} gap="2rem" mt="1rem">
             {loading ? (
               <Fragment>
                 {Array(12)
@@ -99,7 +151,7 @@ const ProductCard2 = () => {
               <Fragment>
                 {/* {productData?.data?.products?.map((product: Product) => ( */}
                 {data &&
-                  data.product.map((item, index) => (
+                  data.products.map((item, index) => (
                     <Box
                       key={index}
                       pos="relative"
@@ -107,26 +159,7 @@ const ProductCard2 = () => {
                       w={300}
                       h={300}
                     >
-                      <Circle
-                        bg="brand.white100"
-                        p=".5rem"
-                        pos="absolute"
-                        left="15px"
-                        top="15px"
-                        color="grey"
-                      >
-                        <Icon
-                          onClick={() => toggleProductChecked(item.product_id)}
-                          color={`${'brand.red100'}`}
-                          fontSize="1.5rem"
-                        >
-                          {loadingLike && item.product_id === like ? (
-                            <GoHeartFill color="red" />
-                          ) : (
-                            <GoHeart />
-                          )}
-                        </Icon>
-                      </Circle>
+                      {' '}
                       <Box
                         bg="brand.white100"
                         boxShadow="0px 4px 24px rgba(240, 240, 240, 0.6)"
@@ -170,6 +203,8 @@ const ProductCard2 = () => {
                                 ${item?.rate}
                               </Text>
                             </Box>
+                          </Flex>
+                          <HStack color={'grey'}>
                             {Array(5)
                               .fill('')
                               .map((_, i) => {
@@ -197,17 +232,30 @@ const ProductCard2 = () => {
                                   <BsStar key={i} style={{ marginLeft: '1' }} />
                                 );
                               })}
-                          </Flex>
-
-                          {/* <Flex
-                      align="center"
-                      fontSize={['1.3rem', '1.5rem']}
-                      color="brand.gold100"
-                      mt="1rem"
-                    >
-                      <Icon cursor="pointer" />
-                      <Text>4.8</Text>
-                    </Flex> */}
+                            <Circle
+                              bg="brand.white100"
+                              p=".5rem"
+                              pos="absolute"
+                              // left="15px"
+                              // top="15px"
+                              right="10px"
+                              color="grey"
+                            >
+                              <Icon
+                                onClick={() =>
+                                  toggleProductChecked(item.product_id)
+                                }
+                                color={`${'brand.red100'}`}
+                                fontSize="1.5rem"
+                              >
+                                {loadingLike && item.product_id === like ? (
+                                  <GoHeartFill color="red" />
+                                ) : (
+                                  <GoHeart />
+                                )}
+                              </Icon>
+                            </Circle>
+                          </HStack>
                         </Box>
                       </Box>
                     </Box>
@@ -215,25 +263,25 @@ const ProductCard2 = () => {
               </Fragment>
             )}
           </SimpleGrid>
-
-          {/* <Box textAlign="center">
-						<Button
-							bg="brand.green100"
-							color="brand.white100"
-							fontSize="1.5rem"
-							p="2rem"
-							mt="5rem"
-							_hover={{
-								bg: "brand.green200",
-							}}
-							_focus={{
-								borderColor: "none",
-								boxShadow: "none",
-							}}
-						>
-							View more products
-						</Button>
-					</Box> */}
+          <Box textAlign="center">
+            <Button
+              bg="brand.green100"
+              color="brand.white100"
+              fontSize="1.5rem"
+              p="2rem"
+              mt="5rem"
+              _hover={{
+                bg: 'brand.green200',
+              }}
+              _focus={{
+                borderColor: 'none',
+                boxShadow: 'none',
+              }}
+              onClick={() => {}}
+            >
+              View more products
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

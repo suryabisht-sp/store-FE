@@ -1,6 +1,14 @@
 import React from 'react';
 import Carousel from '../../components/carousel/Carousel';
-import { Container, Flex, VStack, HStack, Stack } from '@chakra-ui/react';
+import {
+  Container,
+  Flex,
+  VStack,
+  HStack,
+  Stack,
+  Input,
+  Box,
+} from '@chakra-ui/react';
 import Login from '../Login/Login';
 import SignUp from '../../SignUP/SignUp';
 import { ProductDetails } from '../../components/Product/Card';

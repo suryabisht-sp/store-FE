@@ -202,7 +202,7 @@ const ProductDetails = () => {
           <Box>
             <Box w="100%" borderRadius="1rem" overflow="hidden">
               <Image
-                src={data?.product[0]?.imageUrl}
+                src={data?.products[0]?.imageUrl}
                 height={500}
                 width={500}
                 alt="Product Image"
@@ -225,7 +225,7 @@ const ProductDetails = () => {
                 borderRadius=".5rem"
               >
                 <Image
-                  src={data?.product[0]?.imageUrl}
+                  src={data?.products[0]?.imageUrl}
                   height={70}
                   width={70}
                   alt="Product Image"
@@ -249,7 +249,7 @@ const ProductDetails = () => {
               fontSize={['2.5rem', '3.2rem', '2.5rem', '3.2rem']}
               fontWeight="600"
             >
-              {data?.product[0]?.name}
+              {data?.products[0]?.name}
             </Text>
             <Flex
               align="center"
@@ -268,14 +268,14 @@ const ProductDetails = () => {
                   .fill('')
                   .map((_, i) => {
                     const roundedRating =
-                      Math.round(data?.product[0]?.rating * 2) / 2;
+                      Math.round(data?.products[0]?.rating * 2) / 2;
                     if (roundedRating - i >= 1) {
                       return (
                         <BsStarFill
                           key={i}
                           style={{ marginLeft: '1' }}
                           color={
-                            i < data?.product[0]?.rating ? 'orange' : 'red'
+                            i < data?.products[0]?.rating ? 'orange' : 'red'
                           }
                         />
                       );
@@ -292,7 +292,7 @@ const ProductDetails = () => {
                     return <BsStar key={i} style={{ marginLeft: '1' }} />;
                   })}
 
-                <Text ml="1rem">{data?.product[0]?.rating}</Text>
+                <Text ml="1rem">{data?.products[0]?.rating}</Text>
               </Flex>
 
               <Icon cursor="pointer" color="brand.red100" fontSize="1.5rem">
@@ -306,7 +306,7 @@ const ProductDetails = () => {
                 fontSize={['2.5rem', '4.2rem', '2.5rem', '4.2rem']}
                 fontWeight="600"
               >
-                ${data?.product[0]?.rate}
+                ${data?.products[0]?.rate}
               </Text>
               <Text
                 color="brand.grey300"
@@ -363,7 +363,7 @@ const ProductDetails = () => {
                   Product Details
                 </Text>
                 <Text fontSize={['1.5rem', '1.5rem', '1.3rem', '1.5rem']}>
-                  {data?.product[0]?.description}
+                  {data?.products[0]?.description}
                 </Text>
                 <HStack w="100%" gap="1rem">
                   <Box w="100%" onClick={handleAddToCart}>
